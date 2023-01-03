@@ -1,9 +1,18 @@
 let array = [1, 2, 3];
 
-let iterator = array[Symbol.iterator]();
+array[Symbol.iterator] = function () {
+  let nextValue = 7;
+  return {
+    next: function () {
+      nextValue++;
+      return {
+        done: nextValue > 15 ? true : false,
+        value: nextValue,
+      };
+    },
+  };
+};
 
-console.log(iterator);
-console.log(iterator.next());
-console.log(iterator.next());
-console.log(iterator.next());
-console.log(iterator.next());
+for (let element of array) {
+  console.log(element);
+}
